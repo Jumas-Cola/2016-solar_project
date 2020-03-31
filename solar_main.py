@@ -37,6 +37,11 @@ def execution():
     recalculate_space_objects_positions(space_objects, time_step.get())
     for body in space_objects:
         update_object_position(space, body)
+    if [i for i in space_objects if i.type == 'star'] and [i for i in space_objects if i.type == 'planet'] and (physical_time % 500000 == 0):
+        write_space_object_stat_to_file(physical_time,
+            [i for i in space_objects if i.type == 'planet'][0],
+            [i for i in space_objects if i.type == 'star'][0],
+        )
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
 
